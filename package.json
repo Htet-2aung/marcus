@@ -1,0 +1,30 @@
+{
+  "name": "slack-ai-workforce",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Multi-persona AI Employee engine",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@slack/bolt": "^5.1.0",
+    "@slack/socket-mode": "^3.0.1",
+    "@slack/web-api": "^8.1.1",
+    "dotenv": "^16.4.7",
+    "groq-sdk": "^0.15.0",
+    "node-cron": "^4.6.0",
+    "nodemailer": "^10.0.10",
+    "openai": "^4.55.0",
+    "uuid": "^14.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/node-cron": "^3.0.11",
+    "@types/uuid": "^10.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.0"
+  }
+}
