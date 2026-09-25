@@ -182,14 +182,13 @@ export async function uploadMarkdownToSlack(
     content: string;
   },
 ) {
-    const result = (await client.files.uploadV2({
-      channel_id: channel_id, // Keep whatever variable name you were using here
-      filename: filename,
-      title: title,
-      content: content,
-      // 2. Only include thread_ts if it actually exists
-      ...(thread_ts ? { thread_ts } : {})
-    })) as any; 
+  const result = (await client.files.uploadV2({
+    channel_id: params.channel, 
+    filename: params.filename,
+    title: params.filename,
+    content: params.content,
+    ...(params.threadTs ? { thread_ts: params.threadTs } : {})
+  })) as any; 
   
   const files =
     Array.isArray(result.files)
@@ -202,8 +201,6 @@ export async function uploadMarkdownToSlack(
     filename: params.filename,
   };
 }
-
-
 /* =========================================================
    READ SLACK THREAD
 ========================================================= */
