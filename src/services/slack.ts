@@ -182,18 +182,23 @@ export async function uploadMarkdownToSlack(
     content: string;
   },
 ) {
-  const result = (await client.files.uploadV2({
+  // 1. Build the arguments object explicitly as 'any' to bypass strict TS checks
+  const uploadArgs: any = {
     channel_id: params.channel, 
     filename: params.filename,
     title: params.filename,
     content: params.content,
-    ...(params.threadTs ? { thread_ts: params.threadTs } : {})
-  })) as any; 
+  };
+
+  // 2. Only attach thread_ts if it exists
+  if (params.threadTs) {
+    uploadArgs.thread_ts = params.threadTs;
+  }
+
+  // 3. Pass the 'any' object in, and cast the result as 'any'
+  const result: any = await client.files.uploadV2(uploadArgs); 
   
-  const files =
-    Array.isArray(result.files)
-      ? result.files
-      : [];
+  const files = Array.isArray(result.files) ? result.files : [];
 
   return {
     success: true,
@@ -201,6 +206,7 @@ export async function uploadMarkdownToSlack(
     filename: params.filename,
   };
 }
+
 /* =========================================================
    READ SLACK THREAD
 ========================================================= */
